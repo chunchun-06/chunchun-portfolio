@@ -10,7 +10,7 @@ const HeroVideo = () => {
       loop
       playsInline
       aria-hidden="true"        // decorative — hidden from screen readers
-      preload="auto"
+      preload="metadata"
     />
   );
 };
