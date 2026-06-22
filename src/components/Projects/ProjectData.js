@@ -19,7 +19,7 @@ export const PROJECTS_DATA = [
     challenges: null,
     learnings: null,
     githubLink: "#",
-    image: "../public/images/wanderlust.png", 
+    image: "/images/wanderlust.png", 
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ export const PROJECTS_DATA = [
     challenges: null,
     learnings: null,
     githubLink: "",
-    image: "../public/images/ddas.png", 
+    image: "/images/DDAS.png", 
   },
   {
     id: 3,
@@ -63,7 +63,7 @@ export const PROJECTS_DATA = [
     challenges: null,
     learnings: null,
     githubLink: "https://github.com/chunchun-06/cropalyst.git",
-    image: "../public/images/crop.png", 
+    image: "/images/crop.png", 
   },
   {
     id: 4,
@@ -85,6 +85,6 @@ export const PROJECTS_DATA = [
     challenges: null,
     learnings: null,
     githubLink: "https://github.com/chunchun-06/Internship_Matching_Engine.git",
-    image: "../public/images/intern.png",
+    image: "/images/intern.png",
   }
 ];
