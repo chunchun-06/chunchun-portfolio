@@ -73,13 +73,13 @@ const Contact = () => {
 
             {/* Contact Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <a href="mailto:chunchun@example.com" className="flex flex-col p-5 rounded-[20px] bg-[#0b1f3a]/75 backdrop-blur-[18px] border border-[#f3e4c9]/12 hover:border-[#3B82F6]/40 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)] transition-all duration-400 group">
+              <a href="mailto:chunchunrai23@gmail.com" className="flex flex-col p-5 rounded-[20px] bg-[#0b1f3a]/75 backdrop-blur-[18px] border border-[#f3e4c9]/12 hover:border-[#3B82F6]/40 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)] transition-all duration-400 group">
                 <FiMail className="text-[24px] text-[#F3E4C9] mb-3 group-hover:scale-110 transition-transform" />
                 <span className="text-white font-medium mb-1">Email</span>
                 <span className="text-sm text-[#94A3B8] truncate">Say hello</span>
               </a>
 
-              <a href="https://linkedin.com/in/chunchunrai" target="_blank" rel="noreferrer" className="flex flex-col p-5 rounded-[20px] bg-[#0b1f3a]/75 backdrop-blur-[18px] border border-[#f3e4c9]/12 hover:border-[#3B82F6]/40 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)] transition-all duration-400 group">
+              <a href="https://www.linkedin.com/in/chun-chun-25b597326/" target="_blank" rel="noreferrer" className="flex flex-col p-5 rounded-[20px] bg-[#0b1f3a]/75 backdrop-blur-[18px] border border-[#f3e4c9]/12 hover:border-[#3B82F6]/40 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)] transition-all duration-400 group">
                 <FiLinkedin className="text-[24px] text-[#F3E4C9] mb-3 group-hover:scale-110 transition-transform" />
                 <span className="text-white font-medium mb-1">LinkedIn</span>
                 <span className="text-sm text-[#94A3B8] truncate">Let's connect</span>
