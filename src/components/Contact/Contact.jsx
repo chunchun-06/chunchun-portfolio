@@ -114,8 +114,9 @@ const Contact = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div className="flex flex-col">
-                  <label className="text-sm font-medium text-[#CBD5E1] mb-2 pl-1">Full Name</label>
+                  <label htmlFor="contact-name" className="text-sm font-medium text-[#CBD5E1] mb-2 pl-1">Full Name</label>
                   <input 
+                    id="contact-name"
                     type="text" 
                     name="name"
                     required
@@ -126,8 +127,9 @@ const Contact = () => {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label className="text-sm font-medium text-[#CBD5E1] mb-2 pl-1">Email Address</label>
+                  <label htmlFor="contact-email" className="text-sm font-medium text-[#CBD5E1] mb-2 pl-1">Email Address</label>
                   <input 
+                    id="contact-email"
                     type="email" 
                     name="email"
                     required
@@ -140,8 +142,9 @@ const Contact = () => {
               </div>
 
               <div className="flex flex-col mb-6">
-                <label className="text-sm font-medium text-[#CBD5E1] mb-2 pl-1">Subject</label>
+                <label htmlFor="contact-subject" className="text-sm font-medium text-[#CBD5E1] mb-2 pl-1">Subject</label>
                 <input 
+                  id="contact-subject"
                   type="text" 
                   name="subject"
                   required
@@ -153,8 +156,9 @@ const Contact = () => {
               </div>
 
               <div className="flex flex-col mb-8">
-                <label className="text-sm font-medium text-[#CBD5E1] mb-2 pl-1">Message</label>
+                <label htmlFor="contact-message" className="text-sm font-medium text-[#CBD5E1] mb-2 pl-1">Message</label>
                 <textarea 
+                  id="contact-message"
                   name="message"
                   required
                   rows={5}

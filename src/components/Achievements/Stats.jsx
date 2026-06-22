@@ -37,7 +37,7 @@ const Stats = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="w-full mt-24 mb-16"
     >
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 bg-navy-950/40 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+      <div className="flex flex-wrap justify-center items-center text-center gap-4 lg:gap-6 bg-navy-950/40 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.5)]">
         
         {STATS_DATA.map((stat, i) => (
           <motion.div
@@ -46,7 +46,7 @@ const Stats = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="group flex flex-col items-center text-center p-4 rounded-2xl transition-all duration-300 hover:bg-white/[0.03] hover:-translate-y-2 hover:shadow-[0_10px_20px_rgba(59,130,246,0.1)] border border-transparent hover:border-blue-500/20"
+            className="w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.67rem)] lg:flex-1 group flex flex-col items-center text-center p-4 rounded-2xl transition-all duration-300 hover:bg-white/[0.03] hover:-translate-y-2 hover:shadow-[0_10px_20px_rgba(59,130,246,0.1)] border border-transparent hover:border-blue-500/20"
           >
             <div className="mb-4 flex items-center justify-center transition-all duration-500 group-hover:scale-[1.08] group-hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.6)]">
               <stat.icon 

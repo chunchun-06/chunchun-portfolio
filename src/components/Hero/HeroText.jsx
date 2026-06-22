@@ -8,9 +8,6 @@
  *
  *  2. HeroLeftContent — "Hi, I'm Chunchun / A Full-Stack Developer"
  *     left-aligned, vertically centered, animated in from the left with Framer Motion.
- *
- * Both sublayers are defined inline here for colocation; they can be split into
- * separate files if this component grows beyond ~150 lines.
  */
 
 import { motion } from 'framer-motion';
@@ -18,38 +15,26 @@ import { HiArrowDownTray } from 'react-icons/hi2';
 
 /* ─────────────────────────────────────────────────────────────
    Subcomponent: Decorative background serif typography
-   z-[2] — above overlay, visually behind subject (opacity trick)
 ───────────────────────────────────────────────────────────── */
 const HeroDecorativeText = () => (
   <div
-    className="pointer-events-none select-none absolute z-[2] w-full text-center"
+    className="pointer-events-none select-none absolute z-[2] w-full text-center top-[12%] left-1/2 -translate-x-1/2 md:top-[18%] md:w-[90%]"
     aria-hidden="true"
-    style={{
-      /* Sit in the upper-center — above where the head/face appears in the video.
-         Adjust top % to fine-tune relative to your actual video framing. */
-      top: '18%',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      width: '90%',
-    }}
   >
     <p
-      style={{
-        fontFamily: 'Cinzel, "Cormorant Garamond", Georgia, serif',
-        fontSize: 'clamp(40px, 7vw, 20px)',   /* fluid — stays proportional */
-        fontWeight: 600,
-        color: '#D0A933',
-        opacity: 0.42,
-        letterSpacing: '0.45em',
-        textTransform: 'uppercase',
-        lineHeight: 1.45,
-        textAlign: 'center',
-        whiteSpace: 'nowrap',
-      }}
+      className="font-cinzel font-semibold text-[#D0A933] opacity-[0.42] uppercase text-center whitespace-nowrap flex flex-col md:block tracking-[0.2em] text-[28px] leading-snug sm:text-[36px] md:text-[40px] md:tracking-[0.45em] md:leading-[1.45]"
     >
-      BUILD DIFFERENT
-      <br />
-      ENGINEERED BETTER
+      {/* Mobile: 3 balanced lines */}
+      <span className="md:hidden">
+        BUILD DIFFERENT<br/>
+        ENGINEERED<br/>
+        BETTER
+      </span>
+      {/* Desktop/Tablet: 2 lines */}
+      <span className="hidden md:inline">
+        BUILD DIFFERENT<br/>
+        ENGINEERED BETTER
+      </span>
     </p>
   </div>
 );
@@ -78,9 +63,7 @@ const slideInLeft = {
 
 /* ─────────────────────────────────────────────────────────────
    Subcomponent: Left-side foreground name + role text
-   z-[3] — always in front of decorative layer
 ───────────────────────────────────────────────────────────── */
-/* Smooth scroll helper */
 const scrollToProjects = () => {
   document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
@@ -90,25 +73,12 @@ const HeroLeftContent = () => (
     variants={containerVariants}
     initial="hidden"
     animate="visible"
-    className="absolute z-[3] flex flex-col"
-    style={{
-      left: 'clamp(24px, 5vw, 70px)',   /* responsive — 24px on mobile, 70px on wide */
-      top: '58%',
-      transform: 'translateY(-60%)',
-    }}
+    className="absolute z-[3] flex flex-col w-full px-4 items-center text-center left-1/2 -translate-x-1/2 top-[78%] -translate-y-1/2 md:w-auto md:px-0 md:items-start md:text-left md:left-[clamp(24px,5vw,70px)] md:translate-x-0 md:top-[58%] md:-translate-y-[60%]"
   >
     {/* ── Name line ─────────────────────────────────── */}
     <motion.p
       variants={slideInLeft}
-      style={{
-        color: '#FFFFFF',
-        fontSize: 'clamp(18px, 2.4vw, 20px)',
-        fontWeight: 700,
-        letterSpacing: '0.20em',
-        lineHeight: 2.3,
-        textTransform: 'uppercase',
-        fontFamily: 'Inter, system-ui, sans-serif',
-      }}
+      className="text-white font-bold uppercase font-inter text-[15px] sm:text-[18px] leading-[2] tracking-[0.15em] md:text-[clamp(18px,2.4vw,20px)] md:tracking-[0.20em] md:leading-[2.3]"
     >
       Hi, I&apos;m Chunchun,
     </motion.p>
@@ -116,15 +86,7 @@ const HeroLeftContent = () => (
     {/* ── Role line ─────────────────────────────────── */}
     <motion.p
       variants={slideInLeft}
-      style={{
-        color: '#FFFFFF',
-        fontSize: 'clamp(18px, 2.4vw, 20px)',
-        fontWeight: 700,
-        letterSpacing: '0.20em',
-        lineHeight: 1.3,
-        textTransform: 'uppercase',
-        fontFamily: 'Inter, system-ui, sans-serif',
-      }}
+      className="text-white font-bold uppercase font-inter text-[15px] sm:text-[18px] leading-[1.3] tracking-[0.15em] md:text-[clamp(18px,2.4vw,20px)] md:tracking-[0.20em] md:leading-[1.3]"
     >
       A Full-Stack Developer
     </motion.p>
@@ -132,7 +94,7 @@ const HeroLeftContent = () => (
     {/* ── CTA Button Row ────────────────────────────── */}
     <motion.div
       variants={slideInLeft}
-      className="flex flex-row items-center gap-4 mt-8"
+      className="flex flex-row items-center justify-center gap-3 mt-6 flex-nowrap md:justify-start md:gap-4 md:mt-8"
     >
       {/* Primary: Download CV */}
       <motion.a
@@ -142,23 +104,10 @@ const HeroLeftContent = () => (
         whileHover={{ scale: 1.06, boxShadow: '0 8px 32px rgba(255,255,255,0.22)' }}
         whileTap={{ scale: 0.97 }}
         transition={{ type: 'spring', stiffness: 320, damping: 22 }}
-        className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-xs font-bold uppercase tracking-widest cursor-pointer select-none"
-        style={{
-          background: '#FFFFFF',
-          color: '#0a0a0a',
-          border: '1.5px solid rgba(255,255,255,0.9)',
-          boxShadow: '0 2px 18px rgba(255,255,255,0.10)',
-          fontFamily: 'Inter, system-ui, sans-serif',
-          letterSpacing: '0.13em',
-          textDecoration: 'none',
-          whiteSpace: 'nowrap',
-        }}
+        className="inline-flex items-center rounded-full font-bold uppercase cursor-pointer select-none border-[1.5px] whitespace-nowrap bg-white text-[#0a0a0a] border-white/90 shadow-[0_2px_18px_rgba(255,255,255,0.1)] gap-1.5 px-4 py-2.5 text-[10px] tracking-wider md:gap-2 md:px-6 md:py-2.5 md:text-xs md:tracking-[0.13em] md:font-inter"
         aria-label="Download Chunchun Rai resume PDF"
       >
-        <HiArrowDownTray
-          style={{ width: '15px', height: '15px', flexShrink: 0, strokeWidth: 2 }}
-          aria-hidden="true"
-        />
+        <HiArrowDownTray className="shrink-0 stroke-2 w-[14px] h-[14px] md:w-[15px] md:h-[15px]" aria-hidden="true" />
         Download CV
       </motion.a>
 
@@ -174,15 +123,7 @@ const HeroLeftContent = () => (
         }}
         whileTap={{ scale: 0.97 }}
         transition={{ type: 'spring', stiffness: 320, damping: 22 }}
-        className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-xs font-bold uppercase tracking-widest cursor-pointer select-none"
-        style={{
-          background: 'transparent',
-          color: '#FFFFFF',
-          border: '1.5px solid rgba(255,255,255,0.75)',
-          fontFamily: 'Inter, system-ui, sans-serif',
-          letterSpacing: '0.13em',
-          whiteSpace: 'nowrap',
-        }}
+        className="inline-flex items-center rounded-full font-bold uppercase cursor-pointer select-none border-[1.5px] whitespace-nowrap bg-transparent text-white border-white/75 px-4 py-2.5 text-[10px] gap-1.5 tracking-wider md:gap-2 md:px-6 md:py-2.5 md:text-xs md:tracking-[0.13em] md:font-inter"
         aria-label="Scroll to Projects section"
       >
         View Projects
@@ -193,15 +134,14 @@ const HeroLeftContent = () => (
 
 /* ─────────────────────────────────────────────────────────────
    Root export: HeroText
-   Renders both sublayers inside a shared absolute wrapper.
 ───────────────────────────────────────────────────────────── */
 const HeroText = () => {
   return (
     <div className="absolute inset-0">
-      {/* Layer: decorative serif watermark — upper center */}
+      {/* Layer: decorative serif watermark */}
       <HeroDecorativeText />
 
-      {/* Layer: foreground name + role — left, vertically centered */}
+      {/* Layer: foreground name + role */}
       <HeroLeftContent />
     </div>
   );

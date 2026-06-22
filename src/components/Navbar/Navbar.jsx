@@ -130,8 +130,10 @@ const Navbar = () => {
             : "bg-transparent border-transparent"
         }`}
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+        aria-expanded={isMobileMenuOpen}
       >
-        {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        {isMobileMenuOpen ? <FiX size={24} aria-hidden="true" /> : <FiMenu size={24} aria-hidden="true" />}
       </motion.button>
 
       {/* Mobile Navigation Popup */}

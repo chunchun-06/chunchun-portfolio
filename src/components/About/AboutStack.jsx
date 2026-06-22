@@ -132,145 +132,177 @@ const AboutStack = () => {
 
       <div className="h-[70px]" />
 
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }} 
-        whileInView={{ opacity: 1, scale: 1 }} 
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className={`relative flex items-center justify-center w-full min-h-[500px] z-10 ${hoveredTech ? 'is-paused' : ''}`}
-      >
-        
-        {!isMobile && ringConfigs.map((config) => {
-          const r = radii[config.id];
-          const isHovered = activeRing === config.id;
-          const ringTechs = processedTech.filter(t => t.ring === config.id && !t.isGrid);
+      {isMobile ? (
+        /* ── MOBILE: Premium Grid Layout ── */
+        <div className="relative flex flex-col items-center w-full z-10 mt-4 px-4">
           
-          return (
-            <div 
-              key={`orbit-system-${config.id}`}
-              className="absolute flex items-center justify-center solar-ring pointer-events-none"
-              style={{
-                width: r * 2,
-                height: r * 2,
-                "--duration": `${config.duration}s`,
-                "--direction": config.direction,
-              }}
+          {/* Mobile Center Node (Logo) */}
+          <div className="relative flex mb-12 h-[70px] w-[70px] items-center justify-center rounded-full bg-[#020817]/90 backdrop-blur-xl border border-blue-500/30 shadow-[0_0_20px_rgba(59,130,246,0.2),inset_0_0_8px_rgba(251,146,60,0.15)]">
+            <motion.div 
+              className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-blue-400/[0.04] to-transparent"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <span 
+              className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-100 to-slate-300 relative z-10 drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"
+              style={{ fontFamily: 'Cinzel, Georgia, serif' }}
             >
-              {/* Decorative Ring Line */}
-              <div 
-                className="absolute inset-0 rounded-full border"
-                style={{
-                  borderColor: isHovered ? 'rgba(59,130,246,0.4)' : 'rgba(59,130,246,0.15)',
-                  boxShadow: isHovered ? '0 0 20px rgba(59,130,246,0.15) inset, 0 0 20px rgba(59,130,246,0.15)' : 'none',
-                  transition: 'all 0.5s ease',
+              C
+            </span>
+          </div>
+
+          {/* Staggered Grid */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.1 } }
+            }}
+            className="grid grid-cols-3 gap-5 sm:gap-6 justify-center place-items-center w-full max-w-[320px] sm:max-w-[400px]"
+          >
+            {processedTech.filter(t => t.isGrid).map((tech, index) => (
+              <motion.div
+                key={tech.id}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
                 }}
-              />
+              >
+                <motion.div
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 3 + (index % 3), repeat: Infinity, ease: "easeInOut" }}
+                  className="group relative flex items-center justify-center w-[60px] h-[60px] sm:w-[68px] sm:h-[68px] rounded-full bg-[#0a1628]/80 backdrop-blur-md border border-white/10 hover:border-blue-400/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-all duration-300 active:scale-95"
+                >
+                  <tech.icon className="w-[30px] h-[30px] sm:w-[34px] sm:h-[34px] text-slate-300 group-hover:text-white group-hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] transition-all duration-300" />
+                  
+                  {/* Tooltip */}
+                  <span className="absolute -top-12 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-navy-950/95 border border-blue-500/30 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-[0_0_15px_rgba(59,130,246,0.2)] whitespace-nowrap pointer-events-none z-50">
+                    {tech.name}
+                  </span>
+                </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      ) : (
+        /* ── TABLET / DESKTOP: Orbit Animation ── */
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }} 
+          whileInView={{ opacity: 1, scale: 1 }} 
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className={`relative flex items-center justify-center w-full min-h-[400px] lg:min-h-[500px] z-10 ${hoveredTech ? 'is-paused' : ''}`}
+        >
+          {ringConfigs.map((config) => {
+            const r = radii[config.id];
+            const isHovered = activeRing === config.id;
+            const ringTechs = processedTech.filter(t => t.ring === config.id && !t.isGrid);
+            
+            return (
+              <div 
+                key={`orbit-system-${config.id}`}
+                className="absolute flex items-center justify-center solar-ring pointer-events-none"
+                style={{
+                  width: r * 2,
+                  height: r * 2,
+                  "--duration": `${config.duration}s`,
+                  "--direction": config.direction,
+                }}
+              >
+                {/* Decorative Ring Line */}
+                <div 
+                  className="absolute inset-0 rounded-full border"
+                  style={{
+                    borderColor: isHovered ? 'rgba(59,130,246,0.4)' : 'rgba(59,130,246,0.15)',
+                    boxShadow: isHovered ? '0 0 20px rgba(59,130,246,0.15) inset, 0 0 20px rgba(59,130,246,0.15)' : 'none',
+                    transition: 'all 0.5s ease',
+                  }}
+                />
 
-              {/* Hover Connection Line (static inside rotating wrapper) */}
-              <AnimatePresence>
-                {hoveredTech && hoveredTech.ring === config.id && (
-                  <motion.svg
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute overflow-visible w-full h-full left-0 top-0 pointer-events-none z-0"
-                  >
-                    <motion.line
-                      x1="50%"
-                      y1="50%"
-                      x2={`calc(50% + ${hoveredTech.x}px)`}
-                      y2={`calc(50% + ${hoveredTech.y}px)`}
-                      stroke="rgba(59,130,246,0.5)"
-                      strokeWidth="1.5"
-                      strokeDasharray="4 4"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.svg>
-                )}
-              </AnimatePresence>
-
-              {/* Orbiting Icons */}
-              {ringTechs.map((tech) => {
-                const isThisHovered = hoveredTech?.id === tech.id;
-                const isOtherHovered = hoveredTech && !isThisHovered;
-
-                return (
-                  <div
-                    key={tech.id}
-                    className="absolute pointer-events-auto"
-                    style={{ 
-                      left: '50%', top: '50%', 
-                      transform: `translate(-50%, -50%) translate(${tech.x}px, ${tech.y}px)`,
-                    }}
-                    onMouseEnter={() => setHoveredTech(tech)}
-                    onMouseLeave={() => setHoveredTech(null)}
-                  >
-                    {/* Counter-rotating container keeps icon upright */}
-                    <div 
-                      className="solar-icon flex items-center justify-center transition-all duration-300"
-                      style={{
-                        "--duration": `${config.duration}s`,
-                        "--counter-direction": config.direction === "normal" ? "reverse" : "normal",
-                        transform: isThisHovered ? 'scale(1.12)' : 'scale(1)',
-                        opacity: isOtherHovered ? 0.4 : 1,
-                      }}
+                {/* Hover Connection Line */}
+                <AnimatePresence>
+                  {hoveredTech && hoveredTech.ring === config.id && (
+                    <motion.svg
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="absolute overflow-visible w-full h-full left-0 top-0 pointer-events-none z-0"
                     >
-                      <div className={`group relative flex items-center justify-center w-[58px] h-[58px] rounded-full bg-[#0a1628]/80 backdrop-blur-md border border-white/10 transition-all duration-300 ${isThisHovered ? 'border-blue-400/50 shadow-[0_0_20px_rgba(59,130,246,0.5)]' : 'shadow-lg'}`}>
-                        <tech.icon className={`w-[34px] h-[34px] transition-all duration-300 ${isThisHovered ? 'text-white drop-shadow-[0_0_10px_rgba(59,130,246,0.9)]' : 'text-slate-300'}`} />
-                        
-                        <span className={`absolute -top-12 scale-0 opacity-0 transition-all duration-200 bg-navy-950/95 border border-blue-500/30 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-[0_0_15px_rgba(59,130,246,0.2)] whitespace-nowrap pointer-events-none z-50 ${isThisHovered ? 'scale-100 opacity-100' : ''}`}>
-                          {tech.name}
-                        </span>
+                      <motion.line
+                        x1="50%"
+                        y1="50%"
+                        x2={`calc(50% + ${hoveredTech.x}px)`}
+                        y2={`calc(50% + ${hoveredTech.y}px)`}
+                        stroke="rgba(59,130,246,0.5)"
+                        strokeWidth="1.5"
+                        strokeDasharray="4 4"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.svg>
+                  )}
+                </AnimatePresence>
+
+                {/* Orbiting Icons */}
+                {ringTechs.map((tech) => {
+                  const isThisHovered = hoveredTech?.id === tech.id;
+                  const isOtherHovered = hoveredTech && !isThisHovered;
+
+                  return (
+                    <div
+                      key={tech.id}
+                      className="absolute pointer-events-auto"
+                      style={{ 
+                        left: '50%', top: '50%', 
+                        transform: `translate(-50%, -50%) translate(${tech.x}px, ${tech.y}px)`,
+                      }}
+                      onMouseEnter={() => setHoveredTech(tech)}
+                      onMouseLeave={() => setHoveredTech(null)}
+                    >
+                      {/* Counter-rotating container */}
+                      <div 
+                        className="solar-icon flex items-center justify-center transition-all duration-300"
+                        style={{
+                          "--duration": `${config.duration}s`,
+                          "--counter-direction": config.direction === "normal" ? "reverse" : "normal",
+                          transform: isThisHovered ? 'scale(1.12)' : 'scale(1)',
+                          opacity: isOtherHovered ? 0.4 : 1,
+                        }}
+                      >
+                        <div className={`group relative flex items-center justify-center w-[48px] h-[48px] lg:w-[58px] lg:h-[58px] rounded-full bg-[#0a1628]/80 backdrop-blur-md border border-white/10 transition-all duration-300 ${isThisHovered ? 'border-blue-400/50 shadow-[0_0_20px_rgba(59,130,246,0.5)]' : 'shadow-lg'}`}>
+                          <tech.icon className={`w-[26px] h-[26px] lg:w-[34px] lg:h-[34px] transition-all duration-300 ${isThisHovered ? 'text-white drop-shadow-[0_0_10px_rgba(59,130,246,0.9)]' : 'text-slate-300'}`} />
+                          
+                          <span className={`absolute -top-12 scale-0 opacity-0 transition-all duration-200 bg-navy-950/95 border border-blue-500/30 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-[0_0_15px_rgba(59,130,246,0.2)] whitespace-nowrap pointer-events-none z-50 ${isThisHovered ? 'scale-100 opacity-100' : ''}`}>
+                            {tech.name}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                  );
+                })}
+              </div>
+            );
+          })}
 
-        {/* Center Node (Core) */}
-        <div 
-          className={`absolute z-20 flex h-[76px] w-[76px] items-center justify-center rounded-full bg-[#020817]/90 backdrop-blur-xl border border-blue-500/30 shadow-[0_0_20px_rgba(59,130,246,0.15),inset_0_0_8px_rgba(251,146,60,0.15)] transition-all duration-500 ${hoveredTech ? 'shadow-[0_0_30px_rgba(59,130,246,0.3),inset_0_0_10px_rgba(251,146,60,0.2)]' : ''}`}
-        >
-          {/* Subtle breathing animation applied to an overlay */}
-          <motion.div 
-            className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-blue-400/[0.04] to-transparent"
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <span 
-            className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-100 to-slate-300 relative z-10 drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"
-            style={{ fontFamily: 'Cinzel, Georgia, serif' }}
+          {/* Center Node (Core) */}
+          <div 
+            className={`absolute z-20 flex h-[64px] w-[64px] lg:h-[76px] lg:w-[76px] items-center justify-center rounded-full bg-[#020817]/90 backdrop-blur-xl border border-blue-500/30 shadow-[0_0_20px_rgba(59,130,246,0.15),inset_0_0_8px_rgba(251,146,60,0.15)] transition-all duration-500 ${hoveredTech ? 'shadow-[0_0_30px_rgba(59,130,246,0.3),inset_0_0_10px_rgba(251,146,60,0.2)]' : ''}`}
           >
-            C
-          </span>
-        </div>
-
-      </motion.div>
-
-      {/* Mobile Grid Fallback */}
-      {isMobile && (
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 mt-8 px-4 w-full z-10"
-        >
-          {processedTech.filter(t => t.isGrid).map((tech) => (
-            <div
-              key={tech.id}
-              className="group relative flex items-center justify-center w-[58px] h-[58px] rounded-full bg-[#0a1628]/80 backdrop-blur-md border border-white/10 hover:border-blue-400/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-all duration-300 hover:scale-[1.12]"
+            <motion.div 
+              className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-blue-400/[0.04] to-transparent"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <span 
+              className="text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-100 to-slate-300 relative z-10 drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"
+              style={{ fontFamily: 'Cinzel, Georgia, serif' }}
             >
-              <tech.icon className="w-[34px] h-[34px] text-slate-300 group-hover:text-white group-hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] transition-all duration-300" />
-              <span className="absolute -top-12 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-navy-950/95 border border-blue-500/30 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-[0_0_15px_rgba(59,130,246,0.2)] whitespace-nowrap pointer-events-none z-50">
-                {tech.name}
-              </span>
-            </div>
-          ))}
+              C
+            </span>
+          </div>
         </motion.div>
       )}
 
