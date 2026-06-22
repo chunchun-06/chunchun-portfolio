@@ -122,7 +122,7 @@ const Contact = () => {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="John Doe"
+                    placeholder="chunchun"
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 outline-none focus:border-[#3B82F6] focus:bg-white/10 focus:shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all"
                   />
                 </div>
@@ -135,7 +135,7 @@ const Contact = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="john@example.com"
+                    placeholder="chunchun@example.com"
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 outline-none focus:border-[#3B82F6] focus:bg-white/10 focus:shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all"
                   />
                 </div>
@@ -150,7 +150,7 @@ const Contact = () => {
                   required
                   value={formData.subject}
                   onChange={handleChange}
-                  placeholder="Project Inquiry"
+                  placeholder="Regarding, "
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 outline-none focus:border-[#3B82F6] focus:bg-white/10 focus:shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all"
                 />
               </div>
